@@ -1,0 +1,23 @@
+module.exports = function sortCategoriesForInsert (inputJson) {
+  // Your code happens...
+  ///   ... which calculates properJsonOutput
+  function find_all_childs(parent_id, inputJson, my_json){
+	
+		for (var i=0;i<inputJson.length;i++){
+		  if(inputJson[i]['parent_id'] == parent_id){
+			my_json.push(inputJson[i])
+			find_all_childs(inputJson[i]['id'], inputJson, my_json)
+		  }
+		}
+		return my_json
+	}
+  properJsonOutput = [];
+  for(var i=0; i<inputJson.length;i++){
+  	if (inputJson[i]['parent_id'] == null){
+        properJsonOutput.push(inputJson[i])
+        find_all_childs(inputJson[i]['id'], inputJson, properJsonOutput);
+  	    }
+  }
+  
+  return properJsonOutput
+}
